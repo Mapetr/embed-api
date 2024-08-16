@@ -19,10 +19,19 @@ type Image struct {
 	Alt        string
 }
 
+type Video struct {
+	URL        string
+	Secure_URL string
+	Type       string
+	Width      string
+	Height     string
+}
+
 type Result struct {
 	Title string
 	Type  string
 	Image Image
+	Video Video
 	URL   string
 }
 
@@ -86,6 +95,24 @@ func main() {
 				break
 			case "og:image:alt":
 				result.Image.Alt = content
+				break
+			case "og:video":
+				result.Video.URL = content
+				break
+			case "og:video:url":
+				result.Video.URL = content
+				break
+			case "og:video:secure_url":
+				result.Video.Secure_URL = content
+				break
+			case "og:video:type":
+				result.Video.Type = content
+				break
+			case "og:video:width":
+				result.Video.Width = content
+				break
+			case "og:video:height":
+				result.Video.Height = content
 				break
 			case "og:url":
 				result.URL = content

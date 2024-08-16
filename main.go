@@ -42,8 +42,13 @@ type Result struct {
 	URL   string
 }
 
+// TODO: Add caching
 func main() {
 	app := fiber.New()
+
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Redirect("https://github.com/Mapetr/embed-api")
+	})
 
 	app.Get("/embed", func(c *fiber.Ctx) error {
 		link := string(c.Body()[:])

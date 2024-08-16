@@ -27,11 +27,18 @@ type Video struct {
 	Height     string
 }
 
+type Audio struct {
+	URL        string
+	Secure_URL string
+	Type       string
+}
+
 type Result struct {
 	Title string
 	Type  string
 	Image Image
 	Video Video
+	Audio Audio
 	URL   string
 }
 
@@ -63,6 +70,8 @@ func main() {
 		}
 
 		result := new(Result)
+
+		//TODO: Add support for arrays
 
 		doc.Find("meta").Each(func(i int, s *goquery.Selection) {
 			property := s.AttrOr("property", "")
@@ -113,6 +122,18 @@ func main() {
 				break
 			case "og:video:height":
 				result.Video.Height = content
+				break
+			case "og:audio":
+				result.Audio.URL = content
+				break
+			case "og:audio:url":
+				result.Audio.URL = content
+				break
+			case "og:audio:secure_url":
+				result.Audio.Secure_URL = content
+				break
+			case "og:audio:type":
+				result.Audio.Type = content
 				break
 			case "og:url":
 				result.URL = content

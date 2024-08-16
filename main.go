@@ -10,10 +10,19 @@ import (
 	url2 "net/url"
 )
 
+type Image struct {
+	URL        string
+	Secure_URL string
+	Type       string
+	Width      string
+	Height     string
+	Alt        string
+}
+
 type Result struct {
 	Title string
 	Type  string
-	Image string
+	Image Image
 	URL   string
 }
 
@@ -48,19 +57,38 @@ func main() {
 
 		doc.Find("meta").Each(func(i int, s *goquery.Selection) {
 			property := s.AttrOr("property", "")
+			content := s.AttrOr("content", "")
 
 			switch property {
 			case "og:title":
-				result.Title = s.AttrOr("content", "")
+				result.Title = content
 				break
 			case "og:type":
-				result.Type = s.AttrOr("content", "")
+				result.Type = content
 				break
 			case "og:image":
-				result.Image = s.AttrOr("content", "")
+				result.Image.URL = content
+				break
+			case "og:image:url":
+				result.Image.URL = content
+				break
+			case "og:image:secure_url":
+				result.Image.Secure_URL = content
+				break
+			case "og:image:type":
+				result.Image.Type = content
+				break
+			case "og:image:width":
+				result.Image.Width = content
+				break
+			case "og:image:height":
+				result.Image.Height = content
+				break
+			case "og:image:alt":
+				result.Image.Alt = content
 				break
 			case "og:url":
-				result.URL = s.AttrOr("content", "")
+				result.URL = content
 				break
 			}
 		})

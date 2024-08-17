@@ -82,6 +82,10 @@ func main() {
 			property := s.AttrOr("property", "")
 			content := s.AttrOr("content", "")
 
+			if property == "" {
+				property = s.AttrOr("name", "")
+			}
+
 			switch property {
 			case "og:title":
 				result.Title = content

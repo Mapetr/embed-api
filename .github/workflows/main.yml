@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ghcr.io/Mapetr/embed-api:latest
+          tags: ghcr.io/mapetr/embed-api:latest

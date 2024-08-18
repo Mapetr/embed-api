@@ -1,7 +1,6 @@
 package main
 
 import (
-	json2 "encoding/json"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gofiber/fiber/v2"
@@ -150,13 +149,7 @@ func main() {
 			}
 		})
 
-		json, jsonErr := json2.Marshal(result)
-		if jsonErr != nil {
-			println(jsonErr.Error())
-			return c.SendStatus(500)
-		}
-
-		return c.Send(json)
+		return c.JSON(result)
 	})
 
 	app.Listen(":3000")

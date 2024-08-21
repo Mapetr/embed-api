@@ -49,7 +49,7 @@ func main() {
 		return c.Redirect("https://github.com/Mapetr/embed-api")
 	})
 
-	app.Get("/embed", func(c *fiber.Ctx) error {
+	app.Post("/embed", func(c *fiber.Ctx) error {
 		link := string(c.Body()[:])
 
 		url, urlErr := url2.Parse(link)
